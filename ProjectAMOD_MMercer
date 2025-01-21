@@ -1,0 +1,219 @@
+//Micah Mercer 12/7/2023
+//Design and Code Sketch to Show Shapes, objects, functions, and arrays
+
+color[] colors;
+int iterations = 3;
+int horizontalOffset = 10;
+int verticalOffset = 10;
+PFont font; 
+
+void setup() {
+  size(1024, 768);
+  smooth(); 
+  
+
+  font = createFont("Georgia", 88, true); 
+  textFont(font);
+  
+  // color array
+  colors = new color[5];
+  colors[0] = color(255, 204, 0); // Yellow
+  colors[1] = color(102, 204, 255); // Light Blue
+  colors[2] = color(255, 102, 102); // Light Red
+  colors[3] = color(153, 204, 0); // Light Green
+  colors[4] = color(204, 102, 255); // Light Purple
+  
+  background(colors[0]); 
+  
+  drawGradient();
+  drawSkyline();
+  drawText();
+  drawTristar();
+}
+
+void drawGradient() {
+  color curr = colors[0];
+  float pos = 0;
+  for (int i = 0; i < height; i++) {
+    int val = i < (height/2) ? i : abs(height-i);
+    pos = map(val, 0, height, 0, 1);
+    curr = lerpColor(colors[0], colors[4], pos);
+    stroke(curr);
+    line(0, i, width, i);
+  }
+}
+
+void drawSkyline() {
+  translate(-1 * horizontalOffset * iterations, -1 * verticalOffset * iterations);
+  for (int i = 0; i < iterations; i++) {
+    if (i > 0)
+      translate(horizontalOffset, verticalOffset);
+    shape(getSkyline(colors[i]));
+  }
+  resetMatrix();
+}
+
+void drawText() {
+  String s = "Welcome to Music City!";
+  int textOffset = 5;
+  int x1 = 38;
+  int y1 = 594;
+  int x2 = 991;
+  int y2 = 724; 
+  
+  translate(-25, -30);
+  fill(colors[2]);
+  text(s, x1, y1, x2, y2);
+  resetMatrix();
+}
+
+void drawTristar() {
+  scale(0, 9);
+  translate(250, 20);
+  stroke(colors[2]);
+  strokeWeight(10);
+  fill(colors[1]);
+  ellipse(511, 151, 190, 190);
+  noStroke();
+    
+  PShape star1 = createShape();
+  star1.beginShape();
+  star1.fill(colors[2]);
+  star1.vertex(476, 76);
+  star1.vertex(489, 103);
+  star1.vertex(519, 101);
+  star1.vertex(497, 121);
+  star1.vertex(510, 150);
+  star1.vertex(482, 134);
+  star1.vertex(458, 155);
+  star1.vertex(465, 124);
+  star1.vertex(438, 107);
+  star1.vertex(469, 105);
+  star1.vertex(476, 76);
+  star1.endShape(CLOSE);
+  shape(star1);
+  
+  PShape star2 = createShape();
+  star2.beginShape();
+  star2.fill(colors[2]);
+  star2.vertex(537, 106);
+  star2.vertex(559, 126);
+  star2.vertex(587, 111);
+  star2.vertex(574, 139);
+  star2.vertex(597, 159);
+  star2.vertex(566, 158);
+  star2.vertex(553, 185);
+  star2.vertex(547, 156);
+  star2.vertex(516, 152);
+  star2.vertex(543, 135);
+  star2.vertex(537, 106);
+  star2.endShape(CLOSE);
+  shape(star2);
+  
+  PShape star3 = createShape();
+  star3.beginShape();
+  star3.fill(colors[2]);
+  star3.vertex(510, 157);
+  star3.vertex(510, 187);
+  star3.vertex(540, 198);
+  star3.vertex(511, 209);
+  star3.vertex(510, 238);
+  star3.vertex(492, 214);
+  star3.vertex(462, 223);
+  star3.vertex(481, 198);
+  star3.vertex(462, 172);
+  star3.vertex(492, 182);
+  star3.vertex(510, 157);
+  star3.endShape(CLOSE);
+  shape(star3);
+  
+  // unscale and unshift
+  resetMatrix();
+}
+
+PShape getSkyline(color c) {
+
+  PShape s;
+  s = createShape();
+  s.beginShape();
+  s.stroke(0, 200);
+  s.strokeWeight(4);
+  s.fill(c);
+  s.vertex(-50, 504);
+  s.vertex(36, 504);
+  s.vertex(35, 430);
+  s.vertex(82, 430);
+  s.vertex(84, 264);
+  s.vertex(95, 261);
+  s.vertex(101, 153);
+  s.vertex(105, 151);
+  s.vertex(110, 100);
+  s.vertex(113, 179);
+  s.vertex(119, 185);
+  s.vertex(189, 216);
+  s.vertex(196, 146);
+  s.vertex(201, 248);
+  s.vertex(205, 291);
+  s.vertex(212, 295);
+  s.vertex(217, 436);
+  s.vertex(252, 436);
+  s.vertex(252, 476);
+  s.vertex(270, 462);
+  s.vertex(269, 415);
+  s.vertex(274, 415);
+  s.vertex(274, 358);
+  s.vertex(299, 324);
+  s.vertex(344, 324);
+  s.vertex(369, 357);
+  s.vertex(425, 359);
+  s.vertex(425, 345);
+  s.vertex(448, 346);
+  s.vertex(447, 325);
+  s.vertex(477, 323);
+  s.vertex(479, 278);
+  s.vertex(482, 323);
+  s.vertex(486, 322);
+  s.vertex(486, 390);
+  s.vertex(500, 389);
+  s.vertex(501, 376);
+  s.vertex(511, 374);
+  s.vertex(511, 362);
+  s.vertex(520, 354);
+  s.vertex(522, 346);
+  s.vertex(586, 346);
+  s.vertex(588, 392);
+  s.vertex(634, 396);
+  s.vertex(636, 408);
+  s.vertex(659, 393);
+  s.vertex(697, 392);
+  s.vertex(714, 401);
+  s.vertex(717, 416);
+  s.vertex(734, 410);
+  s.vertex(763, 429);
+  s.vertex(763, 440);
+  s.vertex(804, 430);
+  s.vertex(804, 423);
+  s.vertex(824, 420);
+  s.vertex(825, 427);
+  s.vertex(836, 423);
+  s.vertex(837, 416);
+  s.vertex(862, 410);
+  s.vertex(861, 370);
+  s.vertex(870, 367);
+  s.vertex(872, 356);
+  s.vertex(933, 339);
+  s.vertex(956, 342);
+  s.vertex(958, 353);
+  s.vertex(970, 354);
+  s.vertex(972, 406);
+  s.vertex(984, 409);
+  s.vertex(986, 439);
+  s.vertex(997, 438);
+  s.vertex(997, 428);
+  s.vertex(1074, 428);
+  s.vertex(1074, 569);
+  s.vertex(-50, 569);
+  s.vertex(-50, 504);
+  s.endShape(CLOSE);
+  return s;
+}
